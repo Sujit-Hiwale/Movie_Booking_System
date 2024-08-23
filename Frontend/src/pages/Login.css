@@ -1,0 +1,9 @@
+.link-blue {
+    color: #1E90FF;
+    text-decoration: none;
+  }
+  
+  .link-blue:hover {
+    text-decoration: underline;
+  }
+  

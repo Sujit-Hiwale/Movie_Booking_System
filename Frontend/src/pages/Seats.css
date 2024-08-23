@@ -1,0 +1,58 @@
+.seats-container {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .seats-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .seats-row {
+    display: flex;
+    justify-content: center; /* Center rows horizontally */
+    margin-bottom: 15px; /* Space between rows */
+  }
+  
+  .seat {
+    width: 40px; /* Width of each seat */
+    height: 40px; /* Height of each seat */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px; /* Space between seats */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    transition: background-color 0.3s ease;
+  }
+  
+  .seat:hover {
+    background-color: #c0c0c0; /* Highlight color on hover */
+  }
+  
+  .seat.available {
+    background-color: #e0e0e0;
+  }
+  
+  .seat.selected {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .seat.unavailable {
+    background-color:  black;
+    color: white;
+    cursor: not-allowed;
+  }
+  
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+.seats-row .seat:nth-child(5n) {
+  margin-right: 25px; /* Extra space after every 5th seat */
+}

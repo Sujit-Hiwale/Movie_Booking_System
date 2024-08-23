@@ -1,0 +1,1 @@
+DATABASE_PATH = 'C:/Users/ABO SEIF/stack/Frontend/Database/database.sqlite'
