@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import Header from '../components/Header.jsx';
 import { motion } from 'framer-motion';
+import Footer from '../components/Footer.jsx';
 
 function HomePage() {
   const [username, setUsername] = useState(null);
@@ -75,6 +76,20 @@ function HomePage() {
     return `${hours}h ${mins}m`;
   };
 
+    const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => {
+      const maxIndex = Math.max(filteredMovies.length, 1);
+      return (prevIndex - 1 + maxIndex) % maxIndex;
+    });
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => {
+      const maxIndex = Math.max(filteredMovies.length, 1);
+      return (prevIndex + 1) % maxIndex;
+    });
+  };
+
   return (
     <>
     <Header />
@@ -142,8 +157,10 @@ function HomePage() {
       </Container>
       {displayedMovies.length > 0 && !searchTerm && (
         <div style={{ padding: '20px', position: 'relative' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <button onClick={handlePrevious} style={{ marginRight: '10px',backgroundColor: 'transparent', border: 'none', color: 'grey', fontSize: '48px', padding: '0'}}>&lt;</button>
           <motion.div 
-            key={currentIndex}  // Use currentIndex as the key
+            key={currentIndex}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -168,8 +185,11 @@ function HomePage() {
               </div>
             ))}
           </motion.div>
+          <button onClick={handleNext} style={{ marginLeft: '10px', backgroundColor: 'transparent', border: 'none', fontSize: '48px', color: 'grey', padding: '0' }}>&gt;</button>
+          </div>
         </div>
       )}
+      <Footer />
     </>
   );
 }
