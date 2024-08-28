@@ -102,16 +102,16 @@ function Genre() {
         </Col>
         <Col md={9} style={{ marginLeft: '250px' }}>
           <h4>Movies</h4>
-          <Row>
+          <Row className="g-3">
             {filteredMovies.length > 0 ? (
               filteredMovies.map(movie => (
-                <Col key={movie.id} md={4} className="mb-3"  style={{ minWidth: '250px' }}>
+                <Col key={movie.id} md={4} className="d-flex"  style={{ minWidth: '250px' }}>
                   <Card className='bg-dark text-light'>
                     <Card.Img variant="top" src={movie.image || 'placeholder-image-url'} />
-                    <Card.Body>
+                    <Card.Body className="d-flex flex-column" style={{ flexGrow: 1 }}>
                       <Card.Title>{movie.title}</Card.Title>
                       <Card.Text>{movie.genre}</Card.Text>
-                      <Link to={`/movies/${movie.id}`} className="btn btn-primary">View Details</Link>
+                      <Link to={`/movies/${movie.id}`} className="btn btn-primary mt-auto">View Details</Link>
                     </Card.Body>
                   </Card>
                 </Col>
