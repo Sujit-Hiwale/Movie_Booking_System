@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Theatres() {
   const [theatres, setTheatres] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTheatres();
@@ -21,9 +23,7 @@ function Theatres() {
 
   const calculateTotalSeats = (seats) => {
     try {
-      // If seats is an object, use it directly; otherwise, assume it's a JSON string
       const seatsObj = typeof seats === 'string' ? JSON.parse(seats) : seats;
-      // Calculate the total number of seats
       return Object.values(seatsObj).reduce((total, count) => total + count, 0);
     } catch (error) {
       console.error('Error calculating total seats:', error);
@@ -31,13 +31,17 @@ function Theatres() {
     }
   };
 
+  const handleTheatreClick = () => {
+  navigate(`/reservation`);
+};
+
   return (
     <div className="container mt-5">
     <Header />
       <h1 className="text-center mb-4">Theatres</h1>
       <div className="row">
         {theatres.map((theatre) => (
-          <div className="col-md-4 mb-4" key={theatre.id}>
+          <div className="col-md-4 mb-4" style={{ cursor: 'pointer' }} onClick={() => handleTheatreClick(theatre.name)} key={theatre.id}>
             <div className="card bg-dark text-light">
               {theatre.image && (
                 <img

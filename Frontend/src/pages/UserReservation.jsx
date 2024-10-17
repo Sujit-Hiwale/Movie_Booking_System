@@ -4,28 +4,25 @@ import { useUser } from '../components/UserContext';
 import { Table, Container } from 'react-bootstrap';
 
 function UserReservations() {
-  const currentUser = useUser(); // Get the current user from context
+  const currentUser = useUser();
   const [reservations, setReservations] = useState([]);
   const [showtimes, setShowtimes] = useState([]);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
-      // Fetch reservations and showtimes in parallel
       axios.all([
         axios.get(`http://localhost:8080/api/reservation?user_id=${currentUser.id}`),
-        axios.get('http://localhost:8080/api/showtime') // Assuming this endpoint returns all showtimes
+        axios.get('http://localhost:8080/api/showtime')
       ])
       .then(axios.spread((reservationsResponse, showtimesResponse) => {
         const reservationsData = reservationsResponse.data;
         const showtimesData = showtimesResponse.data;
-        
-        // Map showtimes to a dictionary for easy lookup
+
         const showtimesMap = showtimesData.reduce((map, showtime) => {
           map[showtime.id] = showtime;
           return map;
         }, {});
 
-        // Update reservations with movie and theatre names from showtimes
         const updatedReservations = reservationsData.map(reservation => {
           const showtime = showtimesMap[reservation.showtime_id];
           return {
@@ -61,8 +58,8 @@ function UserReservations() {
           <tbody>
             {reservations.map(reservation => (
               <tr key={reservation.id}>
-                <td>{reservation.movie_title}</td> {/* Display movie title */}
-                <td>{reservation.theatre_name}</td> {/* Display theatre name */}
+                <td>{reservation.movie_title}</td> {}
+                <td>{reservation.theatre_name}</td> {}
                 <td>{reservation.seats}</td>
                 <td>{reservation.date}</td>
                 <td>{reservation.start_at}</td>

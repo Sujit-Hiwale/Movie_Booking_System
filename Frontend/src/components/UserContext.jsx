@@ -1,15 +1,14 @@
-// contexts/UserContext.js
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 const UserContext = createContext(null);
 axios.defaults.withCredentials = true;
 export const UserProvider = ({ children }) => {
-    const [currentUser, setCurrentUser] = useState(null); // Initial state for current user
+    const [currentUser, setCurrentUser] = useState(null);
 
     const fetchUser = async () => {
         try {
             const response = await axios.get('http://localhost:8080/api/check_auth');
-            console.log('Response data:', response.data); // Debugging
+            console.log('Response data:', response.data);
             setCurrentUser(response.data.user);
         } catch (error) {
             if (error.response) {
@@ -26,7 +25,7 @@ export const UserProvider = ({ children }) => {
     
 
     useEffect(() => {
-        fetchUser(); // Fetch user data on mount
+        fetchUser();
     }, []);
 
     return (

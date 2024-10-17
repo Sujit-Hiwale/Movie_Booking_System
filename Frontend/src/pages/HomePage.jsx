@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Container } from 'react-bootstrap';
 import Header from '../components/Header.jsx';
 import { motion } from 'framer-motion';
+import Footer from '../components/Footer.jsx';
 
 function HomePage() {
   const [username, setUsername] = useState(null);
@@ -61,7 +62,7 @@ function HomePage() {
         const maxIndex = Math.max(filteredMovies.length, 1);
         return (prevIndex + 1) % maxIndex;
       });
-    }, 5000); // Change every 5 seconds
+    }, 5000);
     return () => clearInterval(interval);
   }, [filteredMovies]);
 
@@ -73,6 +74,20 @@ function HomePage() {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
     return `${hours}h ${mins}m`;
+  };
+
+    const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => {
+      const maxIndex = Math.max(filteredMovies.length, 1);
+      return (prevIndex - 1 + maxIndex) % maxIndex;
+    });
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => {
+      const maxIndex = Math.max(filteredMovies.length, 1);
+      return (prevIndex + 1) % maxIndex;
+    });
   };
 
   return (
@@ -111,9 +126,9 @@ function HomePage() {
         {!searchTerm && (
           <div style={{position: 'absolute',
             top: '80px',
-            left: '50%',  // Center horizontally
-            transform: 'translateX(-50%)',  // Center horizontally
-            width: '50%',  // Ensure the width is consistent
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '50%',
             maxHeight: '300px',
             zIndex: 1000,
             textAlign: 'left',}}>
@@ -142,8 +157,10 @@ function HomePage() {
       </Container>
       {displayedMovies.length > 0 && !searchTerm && (
         <div style={{ padding: '20px', position: 'relative' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+          <button onClick={handlePrevious} style={{ marginRight: '10px',backgroundColor: 'transparent', border: 'none', color: 'grey', fontSize: '48px', padding: '0'}}>&lt;</button>
           <motion.div 
-            key={currentIndex}  // Use currentIndex as the key
+            key={currentIndex}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -50 }}
@@ -168,8 +185,11 @@ function HomePage() {
               </div>
             ))}
           </motion.div>
+          <button onClick={handleNext} style={{ marginLeft: '10px', backgroundColor: 'transparent', border: 'none', fontSize: '48px', color: 'grey', padding: '0' }}>&gt;</button>
+          </div>
         </div>
       )}
+      <Footer />
     </>
   );
 }

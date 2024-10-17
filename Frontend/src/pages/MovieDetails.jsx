@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Header from '../components/Header.jsx';
-import './styles.css'; // Adjust the path as necessary
 
 
 function MovieDetails() {
-  const { id } = useParams(); // Get the movie ID from the URL
+  const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [error, setError] = useState('');
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
@@ -79,15 +78,15 @@ function MovieDetails() {
                   width: '640px',
                   height: '360px',
                   backgroundImage: `url('https://img.youtube.com/vi/${getYouTubeVideoId(movie.trailer)}/hqdefault.jpg')`,
-                  backgroundSize: 'cover',  // Use 'cover' for better fit
+                  backgroundSize: 'cover',
                   backgroundPosition: 'center center',
                   backgroundRepeat: 'no-repeat',
                   cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRadius: '8px',  // Add border radius for consistent styling
-                  overflow: 'hidden',   // Hide any overflow
+                  borderRadius: '8px',
+                  overflow: 'hidden',
                 }}
                 onClick={() => setIsVideoLoaded(true)}
               >
@@ -105,7 +104,7 @@ function MovieDetails() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen
-                style={{ borderRadius: '8px' }}  // Ensure iframe matches the rounded corners
+                style={{ borderRadius: '8px' }}
               ></iframe>
             )}
           </div>

@@ -5,7 +5,7 @@ const AdminShowtime = () => {
     const [showtimes, setShowtimes] = useState([]);
     const [movies, setMovies] = useState([]);
     const [theatres, setTheatres] = useState([]);
-    const [forms, setForms] = useState([ // Manage multiple forms for bulk creation
+    const [forms, setForms] = useState([
         {
             movie_id: '',
             theatre_id: '',

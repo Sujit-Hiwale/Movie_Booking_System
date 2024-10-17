@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useLocation } from 'react-router-dom'; // For navigation and query parameters
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Seats.css';
 
 const generateRandomUnavailableSeats = (rows, maxSeatsPerRow) => {
   const unavailableSeats = new Set();
   const totalSeats = rows * maxSeatsPerRow;
 
-  // Number of unavailable seats to generate
-  const numUnavailableSeats = Math.floor(Math.random() * (totalSeats / 2)); // Up to 25% of total seats
+  const numUnavailableSeats = Math.floor(Math.random() * (totalSeats / 2));
 
   while (unavailableSeats.size < numUnavailableSeats) {
-    const row = String.fromCharCode(65 + Math.floor(Math.random() * rows)); // Generate row letter (A, B, C, ...)
+    const row = String.fromCharCode(65 + Math.floor(Math.random() * rows));
     const seatNumber = Math.floor(Math.random() * maxSeatsPerRow) + 1;
     unavailableSeats.add(`${row}-${seatNumber}`);
   }
@@ -25,10 +24,10 @@ const Seats = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentTheatre, setCurrentTheatre] = useState(null);
-  const [requiredSeats, setRequiredSeats] = useState(0); // Holds the number of required seats
-  const [unavailableSeats, setUnavailableSeats] = useState(new Set()); // State for unavailable seats
+  const [requiredSeats, setRequiredSeats] = useState(0);
+  const [unavailableSeats, setUnavailableSeats] = useState(new Set());
   const navigate = useNavigate();
-  const location = useLocation(); // For accessing query parameters
+  const location = useLocation();
 
   useEffect(() => {
     const query = new URLSearchParams(location.search);
@@ -47,7 +46,6 @@ const Seats = () => {
 
           setCurrentTheatre(theatreData);
 
-          // Generate random unavailable seats based on rows and max seats per row
           const rows = Object.keys(theatreData.seats).length;
           const maxSeatsPerRow = Math.max(...Object.values(theatreData.seats));
           const simulatedUnavailableSeats = generateRandomUnavailableSeats(rows, maxSeatsPerRow);
@@ -93,10 +91,9 @@ const Seats = () => {
 
     console.log('Selected Seats:', Array.from(selectedSeats));
 
-    // Simulate successful reservation
     alert('Seats reserved successfully!');
     setSelectedSeats(new Set());
-    navigate('/payment'); // Redirect to payment page
+    navigate('/payment');
   };
 
   if (loading) return <div>Loading...</div>;

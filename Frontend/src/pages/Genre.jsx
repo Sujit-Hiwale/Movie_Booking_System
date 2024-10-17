@@ -8,23 +8,20 @@ function Genre() {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [allMovies, setAllMovies] = useState([]);
   const [filteredMovies, setFilteredMovies] = useState([]);
-  const [filterMode, setFilterMode] = useState('any'); // 'any' or 'all'
+  const [filterMode, setFilterMode] = useState('any');
 
   useEffect(() => {
-    // Fetch all movies and genres
     axios.get('http://localhost:8080/api/movies')
       .then(response => {
         const movies = response.data;
         setAllMovies(movies);
 
-        // Extract unique genres from movies
         const genreSet = new Set();
         movies.forEach(movie => {
           const movieGenres = movie.genre.split(',');
           movieGenres.forEach(genre => genreSet.add(genre.trim()));
         });
 
-        // Convert set to array and sort alphabetically
         const sortedGenres = Array.from(genreSet).sort((a, b) => a.localeCompare(b));
         setGenres(sortedGenres);
       })
@@ -34,7 +31,6 @@ function Genre() {
   }, []);
 
   useEffect(() => {
-    // Filter movies based on selected genres
     if (selectedGenres.length === 0) {
       setFilteredMovies([]);
     } else {
@@ -42,7 +38,7 @@ function Genre() {
         const movieGenres = movie.genre.split(',').map(g => g.trim());
         if (filterMode === 'any') {
           return selectedGenres.some(genre => movieGenres.includes(genre));
-        } else { // filterMode === 'all'
+        } else {
           return selectedGenres.every(genre => movieGenres.includes(genre));
         }
       });
@@ -102,16 +98,16 @@ function Genre() {
         </Col>
         <Col md={9} style={{ marginLeft: '250px' }}>
           <h4>Movies</h4>
-          <Row>
+          <Row className="g-3">
             {filteredMovies.length > 0 ? (
               filteredMovies.map(movie => (
-                <Col key={movie.id} md={4} className="mb-3"  style={{ minWidth: '250px' }}>
+                <Col key={movie.id} md={4} className="d-flex"  style={{ minWidth: '250px' }}>
                   <Card className='bg-dark text-light'>
                     <Card.Img variant="top" src={movie.image || 'placeholder-image-url'} />
-                    <Card.Body>
+                    <Card.Body className="d-flex flex-column" style={{ flexGrow: 1 }}>
                       <Card.Title>{movie.title}</Card.Title>
                       <Card.Text>{movie.genre}</Card.Text>
-                      <Link to={`/movies/${movie.id}`} className="btn btn-primary">View Details</Link>
+                      <Link to={`/movies/${movie.id}`} className="btn btn-primary mt-auto">View Details</Link>
                     </Card.Body>
                   </Card>
                 </Col>

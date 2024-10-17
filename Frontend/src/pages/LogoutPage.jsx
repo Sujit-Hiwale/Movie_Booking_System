@@ -1,16 +1,15 @@
 import React, { useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // For redirecting after logout
+import { useNavigate } from 'react-router-dom';
 
 function Logout() {
-  const navigate = useNavigate(); // For redirecting after logout
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
       .post('http://localhost:8080/api/logout', {}, { withCredentials: true })
       .then(() => {
-        // Handle successful logout
-        navigate('/'); // Redirect to login or home page
+        navigate('/');
       })
       .catch((error) => {
         console.error('Error logging out:', error);

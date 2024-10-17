@@ -11,17 +11,17 @@
   
   .seats-row {
     display: flex;
-    justify-content: center; /* Center rows horizontally */
-    margin-bottom: 15px; /* Space between rows */
+    justify-content: center;
+    margin-bottom: 15px;
   }
   
   .seat {
-    width: 40px; /* Width of each seat */
-    height: 40px; /* Height of each seat */
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px; /* Space between seats */
+    margin: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
@@ -30,7 +30,7 @@
   }
   
   .seat:hover {
-    background-color: #c0c0c0; /* Highlight color on hover */
+    background-color: #c0c0c0;
   }
   
   .seat.available {
@@ -54,5 +54,5 @@
     font-size: 16px;
   }
 .seats-row .seat:nth-child(5n) {
-  margin-right: 25px; /* Extra space after every 5th seat */
+  margin-right: 25px;
 }

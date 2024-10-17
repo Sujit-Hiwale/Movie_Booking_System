@@ -7,19 +7,17 @@ function PaymentPortal() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Simulate payment processing
     const timer = setTimeout(() => {
       setPaymentSuccess(true);
-      // Redirect to homepage after 3 seconds
       setTimeout(() => navigate('/'), 3000);
-    }, 15000); // 5-second delay to simulate payment processing
+    }, 15000);
 
-    return () => clearTimeout(timer); // Cleanup the timer if the component unmounts
+    return () => clearTimeout(timer);
   }, [navigate]);
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto', padding: '20px', borderRadius: '8px', background: '#fff', color: '#000', textAlign: 'center' }}>
-      <h2>Fake Payment Portal</h2>
+      <h2>Payment Portal</h2>
       {!paymentSuccess ? (
         <>
           <p>Scan the QR code below to complete your payment:</p>
